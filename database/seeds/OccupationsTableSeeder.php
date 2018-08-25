@@ -13,6 +13,6 @@ class OccupationsTableSeeder extends Seeder
     public function run()
     {
         Occupation::truncate();
-        factory(\App\Occupation::class, env('FAKER_CANT_OCCUPATIONS'))->create();
+        factory(\App\Occupation::class, (int)env('FAKER_CANT_OCCUPATIONS'))->create();
     }
 }

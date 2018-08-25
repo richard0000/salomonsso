@@ -13,6 +13,6 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         User::truncate();
-        factory(User::class, env('FAKER_CANT_USERS'))->create();
+        factory(User::class, (int)env('FAKER_CANT_USERS'))->create();
     }
 }

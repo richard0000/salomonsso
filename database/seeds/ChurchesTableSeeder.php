@@ -13,6 +13,6 @@ class ChurchesTableSeeder extends Seeder
     public function run()
     {
         Church::truncate();
-        factory(Church::class, env('FAKER_CANT_CHURCHES'))->create();
+        factory(Church::class, (int)env('FAKER_CANT_CHURCHES'))->create();
     }
 }
