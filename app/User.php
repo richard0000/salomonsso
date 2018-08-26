@@ -2,16 +2,16 @@
 
 namespace App;
 
+use App\Traits\Searchable;
 use Illuminate\Auth\Authenticatable;
-use Laravel\Lumen\Auth\Authorizable;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Database\Eloquent\Model;
+use Laravel\Lumen\Auth\Authorizable;
 
 class User extends Model implements AuthenticatableContract, AuthorizableContract
 {
-    use Authenticatable, Authorizable;
+    use Authenticatable, Authorizable, Searchable;
 
     /**
      * The attributes that are mass assignable.
@@ -44,8 +44,14 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
          * Fk's
          */
         'occupation_id',
-        'church_id'
+        'church_id',
     ];
+
+    /**
+     * Searchable fields
+     *
+     */
+    protected $search_bindings = ['surname', 'name'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -60,7 +66,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * Relation between a user and the church to which he belongs
      *
      */
-    public function church(){
+    public function church()
+    {
         return $this->hasOne('App\Church');
     }
 
@@ -68,7 +75,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * Relation between a user and his main occupation
      *
      */
-    public function occupation(){
-        return $this->hasOne('App\Occupation');
+    public function occupation()
+    {
+        return $this->belongsTo('App\Occupation');
     }
 }

@@ -3,11 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\Searchable;
 
 class Occupation extends Model
 {
+    use Searchable;
     /**
-     * Campos a manejar por el objeto a mapear
+     * The attributes that are mass assignable.
      *
      */
     protected $fillable = [
@@ -15,4 +17,9 @@ class Occupation extends Model
         'created_at',
         'updated_at'
     ];
+    /**
+     * Searchable fields
+     *
+     */
+    protected $search_bindings = ['description'];
 }
