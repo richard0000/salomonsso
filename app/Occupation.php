@@ -22,4 +22,12 @@ class Occupation extends Model
      *
      */
     protected $search_bindings = ['description'];
+    /**
+     * Relation between an occupation and its related members
+     *
+     */
+    public function members()
+    {
+        return $this->hasMany('App\User');
+    }
 }

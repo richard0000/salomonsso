@@ -3,7 +3,6 @@ namespace App\Http\Controllers;
 
 use App\Occupation;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
 class OccupationController extends Controller
 {
@@ -40,8 +39,7 @@ class OccupationController extends Controller
     {
         $this->validateStore($request);
 
-        $request['password'] = Hash::make($request->get('password'));
-        $occupation          = Occupation::create($request->all());
+        $occupation = Occupation::create($request->all());
 
         return $this->success("The occupation with with id {$occupation->id} has been created", 201);
     }
@@ -87,10 +85,13 @@ class OccupationController extends Controller
     public function destroy($id)
     {
         $occupation = Occupation::find($id);
+
         if (!$occupation) {
             return $this->error("The occupation with {$id} doesn't exist", 404);
         }
+
         $occupation->delete();
+
         return $this->success("The occupation with with id {$id} has been deleted", 200);
     }
     /**

@@ -1,5 +1,7 @@
 <?php
 
+use App\User;
+
 class UserTest extends TestCase
 {
     /**
@@ -9,7 +11,7 @@ class UserTest extends TestCase
      */
     public function testRequestForAllUsers()
     {
-        $this->json('GET', '/users')
+        $this->json('GET', '/users?filter[church_id_eq]=' . mt_rand(1, env('FAKER_CANT_CHURCHES')))
             ->seeStatusCode(200);
     }
     /**
@@ -20,10 +22,10 @@ class UserTest extends TestCase
     public function testUserCreation()
     {
         $this->json('POST', '/users/', [
-            'name'     => 'Test',
-            'surname'  => 'Test',
-            'email'    => 'creation'. uniqid() .'@test.com',
-            'password' => '123123123',
+            'name'      => 'Test',
+            'surname'   => 'Test',
+            'email'     => 'creation' . uniqid() . '@test.com',
+            'password'  => '123123123',
             'church_id' => 1,
         ])
             ->seeStatusCode(201);
@@ -48,7 +50,9 @@ class UserTest extends TestCase
      */
     public function testDeleteUser()
     {
-        $this->json('DELETE', '/users/' . mt_rand(1, env('FAKER_CANT_USERS')))
+        $user = User::orderByRaw("RAND()")->first();
+
+        $this->json('DELETE', '/users/' . $user->id)
             ->seeStatusCode(200);
     }
 }

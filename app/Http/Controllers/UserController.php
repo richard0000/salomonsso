@@ -26,6 +26,8 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+        $this->validateIndex($request);
+
         $users = User::search($request->only('filter'))
             ->paginate();
 
@@ -95,6 +97,21 @@ class UserController extends Controller
         $user->delete();
         return $this->success("The user with with id {$id} has been deleted", 200);
     }
+
+    /**
+     * Validate fields in request for store user operation
+     *
+     * @return void
+     */
+    public function validateIndex(Request $request)
+    {
+        $rules = [
+            'filter.church_id_eq' => 'required',
+        ];
+
+        $this->validate($request, $rules);
+    }
+
     /**
      * Validate fields in request for store user operation
      *

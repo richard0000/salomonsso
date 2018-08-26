@@ -51,7 +51,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * Searchable fields
      *
      */
-    protected $search_bindings = ['surname', 'name'];
+    protected $search_bindings = ['surname', 'name', 'church_id'];
 
     /**
      * The attributes excluded from the model's JSON form.

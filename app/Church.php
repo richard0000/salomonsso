@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\Searchable;
 
 class Church extends Model
 {
+    use Searchable;
     /**
      * Fields that are mapped in database
      *
@@ -29,5 +31,13 @@ class Church extends Model
     public function pastor()
     {
         return $this->hasOne('App\User', 'id', 'user_id');
+    }
+    /**
+     * Relation between a church and its related members
+     *
+     */
+    public function members()
+    {
+        return $this->hasMany('App\User');
     }
 }
