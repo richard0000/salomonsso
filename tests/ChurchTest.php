@@ -1,9 +1,11 @@
 <?php
 
+use App\Traits\TokenizableTest;
 use App\Church;
 
 class ChurchTest extends TestCase
 {
+    use TokenizableTest;
     /**
      * Test a request for te list of users
      *
@@ -11,7 +13,11 @@ class ChurchTest extends TestCase
      */
     public function testRequestForAllChurches()
     {
-        $this->json('GET', '/churches')
+        $auth = $this->getAuthToken();
+
+        $this->json('GET', '/churches', [], [
+            'Authorization' => $auth['token'],
+        ])
             ->seeStatusCode(200);
     }
     /**
@@ -21,8 +27,12 @@ class ChurchTest extends TestCase
      */
     public function testChurchCreation()
     {
+        $auth = $this->getAuthToken();
+     
         $this->json('POST', '/churches', [
             'name' => 'Test' . uniqid(),
+        ], [
+            'Authorization' => $auth['token'],
         ])
             ->seeStatusCode(201);
     }
@@ -33,8 +43,12 @@ class ChurchTest extends TestCase
      */
     public function testUpdateChurch()
     {
+        $auth = $this->getAuthToken();
+
         $this->json('PUT', '/churches/' . mt_rand(1, env('FAKER_CANT_CHURCHES')), [
             'name' => 'TestChangedName' . uniqid(),
+        ], [
+            'Authorization' => $auth['token'],
         ])
             ->seeStatusCode(200);
     }
@@ -45,10 +59,14 @@ class ChurchTest extends TestCase
      */
     public function testDeleteChurch()
     {
+        $auth = $this->getAuthToken();
+
         $church = Church::doesntHave('members')->first();
 
         if($church){
-            $this->json('DELETE', '/churches/' . $church->id)
+            $this->json('DELETE', '/churches/' . $church->id, [], [
+                'Authorization' => $auth['token'],
+            ])
                 ->seeStatusCode(200);
         }
     }
