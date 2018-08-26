@@ -18,6 +18,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'name'          => $faker->name,
         'surname'       => $faker->name,
         'email'         => $faker->unique()->email,
+        'password'      => app('hash')->make('123123123'),
         'address'       => $faker->word(),
         'phone1'        => $faker->phoneNumber,
         'phone2'        => $faker->phoneNumber,
@@ -32,12 +33,12 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
          * Fk's
          */
         'occupation_id' => mt_rand(1, env('FAKER_CANT_OCCUPATIONS')),
-        'church_id'     => mt_rand(1, env('FAKER_CANT_CHURCHES'))
+        'church_id'     => mt_rand(1, env('FAKER_CANT_CHURCHES')),
     ];
 });
 $factory->define(App\Occupation::class, function (Faker\Generator $faker) {
     return [
-        'description' => $faker->sentence(4)
+        'description' => $faker->sentence(4),
     ];
 });
 $factory->define(App\Church::class, function (Faker\Generator $faker) {
@@ -47,6 +48,6 @@ $factory->define(App\Church::class, function (Faker\Generator $faker) {
         'phone1'  => $faker->phoneNumber,
         'phone2'  => $faker->phoneNumber,
         'phone3'  => $faker->phoneNumber,
-        'email'   => $faker->unique()->email
+        'email'   => $faker->unique()->email,
     ];
 });

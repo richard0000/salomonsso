@@ -1,9 +1,11 @@
 <?php
 
 use App\Occupation;
+use App\Traits\TokenizableTest;
 
 class OccupationTest extends TestCase
 {
+    use TokenizableTest;
     /**
      * Test a request for te list of users
      *
@@ -11,7 +13,11 @@ class OccupationTest extends TestCase
      */
     public function testRequestForAllOccupations()
     {
-        $this->json('GET', '/occupations')
+        $auth = $this->getAuthToken();
+
+        $this->json('GET', '/occupations', [], [
+            'Authorization' => $auth['token'],
+        ])
             ->seeStatusCode(200);
     }
     /**
@@ -21,8 +27,12 @@ class OccupationTest extends TestCase
      */
     public function testOccupationCreation()
     {
+        $auth = $this->getAuthToken();
+
         $this->json('POST', '/occupations', [
             'description' => 'Test' . uniqid(),
+        ], [
+            'Authorization' => $auth['token'],
         ])
             ->seeStatusCode(201);
     }
@@ -33,8 +43,12 @@ class OccupationTest extends TestCase
      */
     public function testUpdateOccupation()
     {
+        $auth = $this->getAuthToken();
+
         $this->json('PUT', '/occupations/' . mt_rand(1, env('FAKER_CANT_OCCUPATIONS')), [
             'description' => 'TestChangedDescription' . uniqid(),
+        ], [
+            'Authorization' => $auth['token'],
         ])
             ->seeStatusCode(200);
     }
@@ -45,10 +59,14 @@ class OccupationTest extends TestCase
      */
     public function testDeleteOccupation()
     {
+        $auth = $this->getAuthToken();
+
         $occupation = Occupation::doesntHave('members')->first();
 
-        if($occupation){
-            $this->json('DELETE', '/occupations/' . $occupation->id)
+        if ($occupation) {
+            $this->json('DELETE', '/occupations/' . $occupation->id, [], [
+                'Authorization' => $auth['token'],
+            ])
                 ->seeStatusCode(200);
         }
     }

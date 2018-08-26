@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use App\User;
+use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder
 {
@@ -13,6 +13,15 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         User::truncate();
-        factory(User::class, (int)env('FAKER_CANT_USERS'))->create();
+
+        User::create([
+            'name'      => 'admin',
+            'surname'   => 'admin',
+            'email'     => 'admin@salomon.com',
+            'password'  => app('hash')->make('s@l0m0n'),
+            'church_id' => '1',
+        ]);
+
+        factory(User::class, (int) env('FAKER_CANT_USERS'))->create();
     }
 }
