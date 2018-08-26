@@ -19,9 +19,9 @@ trait TokenizableTest
      */
     function getAuthToken(): array
     {
-        $auth = $this->json('POST', '/auth/login', [
-            'email'    => 'admin@salomon.com',
-            'password' => 's@l0m0n',
+        $auth = $this->json('POST', '/api/auth/login', [
+            'email'    => env('FAKE_ADMIN_USER'),
+            'password' => env('FAKE_ADMIN_PASSWORD'),
         ])->seeStatusCode(200)->response->getContent();
 
         return json_decode($auth, true);

@@ -6,8 +6,10 @@
 |--------------------------------------------------------------------------
 |
  */
-$router->group(
-    ['middleware' => 'jwt.auth'],
+$router->group([
+    'middleware' => 'jwt.auth',
+    'prefix'     => '/api',
+],
     function () use ($router) {
         $router->get('/churches', 'ChurchController@index');
         $router->get('/churches/{id}', 'ChurchController@show');

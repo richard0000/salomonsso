@@ -6,8 +6,10 @@
 |--------------------------------------------------------------------------
 |
  */
-$router->group(
-    ['middleware' => 'jwt.auth'],
+$router->group([
+    'middleware' => 'jwt.auth',
+    'prefix'     => '/api',
+],
     function () use ($router) {
         $router->get('/users/', 'UserController@index');
         $router->post('/users/', 'UserController@store');

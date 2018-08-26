@@ -16,7 +16,7 @@ class UserTest extends TestCase
     {
         $auth = $this->getAuthToken();
 
-        $this->json('GET', '/users?filter[church_id_eq]=' . mt_rand(1, env('FAKER_CANT_CHURCHES')), [], [
+        $this->json('GET', '/api/users?filter[church_id_eq]=' . mt_rand(1, env('FAKER_CANT_CHURCHES')), [], [
             'Authorization' => $auth['token'],
         ])
             ->seeStatusCode(200);
@@ -30,7 +30,7 @@ class UserTest extends TestCase
     {
         $auth = $this->getAuthToken();
 
-        $this->json('POST', '/users/', [
+        $this->json('POST', '/api/users/', [
             'name'      => 'Test',
             'surname'   => 'Test',
             'email'     => 'creation' . uniqid() . '@test.com',
@@ -52,7 +52,7 @@ class UserTest extends TestCase
 
         $user = User::orderByRaw("RAND()")->first();
 
-        $this->json('PUT', '/users/' . $user->id, [
+        $this->json('PUT', '/api/users/' . $user->id, [
             'name' => 'TestChangedName',
         ], [
             'Authorization' => $auth['token'],
@@ -71,7 +71,7 @@ class UserTest extends TestCase
 
         $user = User::orderByRaw("RAND()")->first();
 
-        $this->json('DELETE', '/users/' . $user->id, [], [
+        $this->json('DELETE', '/api/users/' . $user->id, [], [
             'Authorization' => $auth['token'],
         ])
             ->seeStatusCode(200);

@@ -15,7 +15,7 @@ class ChurchTest extends TestCase
     {
         $auth = $this->getAuthToken();
 
-        $this->json('GET', '/churches', [], [
+        $this->json('GET', '/api/churches', [], [
             'Authorization' => $auth['token'],
         ])
             ->seeStatusCode(200);
@@ -29,7 +29,7 @@ class ChurchTest extends TestCase
     {
         $auth = $this->getAuthToken();
      
-        $this->json('POST', '/churches', [
+        $this->json('POST', '/api/churches', [
             'name' => 'Test' . uniqid(),
         ], [
             'Authorization' => $auth['token'],
@@ -45,7 +45,7 @@ class ChurchTest extends TestCase
     {
         $auth = $this->getAuthToken();
 
-        $this->json('PUT', '/churches/' . mt_rand(1, env('FAKER_CANT_CHURCHES')), [
+        $this->json('PUT', '/api/churches/' . mt_rand(1, env('FAKER_CANT_CHURCHES')), [
             'name' => 'TestChangedName' . uniqid(),
         ], [
             'Authorization' => $auth['token'],
@@ -64,7 +64,7 @@ class ChurchTest extends TestCase
         $church = Church::doesntHave('members')->first();
 
         if($church){
-            $this->json('DELETE', '/churches/' . $church->id, [], [
+            $this->json('DELETE', '/api/churches/' . $church->id, [], [
                 'Authorization' => $auth['token'],
             ])
                 ->seeStatusCode(200);

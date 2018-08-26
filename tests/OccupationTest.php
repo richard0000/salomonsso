@@ -15,7 +15,7 @@ class OccupationTest extends TestCase
     {
         $auth = $this->getAuthToken();
 
-        $this->json('GET', '/occupations', [], [
+        $this->json('GET', '/api/occupations', [], [
             'Authorization' => $auth['token'],
         ])
             ->seeStatusCode(200);
@@ -29,7 +29,7 @@ class OccupationTest extends TestCase
     {
         $auth = $this->getAuthToken();
 
-        $this->json('POST', '/occupations', [
+        $this->json('POST', '/api/occupations', [
             'description' => 'Test' . uniqid(),
         ], [
             'Authorization' => $auth['token'],
@@ -45,7 +45,7 @@ class OccupationTest extends TestCase
     {
         $auth = $this->getAuthToken();
 
-        $this->json('PUT', '/occupations/' . mt_rand(1, env('FAKER_CANT_OCCUPATIONS')), [
+        $this->json('PUT', '/api/occupations/' . mt_rand(1, env('FAKER_CANT_OCCUPATIONS')), [
             'description' => 'TestChangedDescription' . uniqid(),
         ], [
             'Authorization' => $auth['token'],
@@ -64,7 +64,7 @@ class OccupationTest extends TestCase
         $occupation = Occupation::doesntHave('members')->first();
 
         if ($occupation) {
-            $this->json('DELETE', '/occupations/' . $occupation->id, [], [
+            $this->json('DELETE', '/api/occupations/' . $occupation->id, [], [
                 'Authorization' => $auth['token'],
             ])
                 ->seeStatusCode(200);
