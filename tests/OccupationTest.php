@@ -45,7 +45,9 @@ class OccupationTest extends TestCase
     {
         $auth = $this->getAuthToken();
 
-        $this->json('PUT', '/api/occupations/' . mt_rand(1, env('FAKER_CANT_OCCUPATIONS')), [
+        $occupation = Occupation::orderByRaw("RAND()")->first();
+
+        $this->json('PUT', '/api/occupations/' . $occupation->id, [
             'description' => 'TestChangedDescription' . uniqid(),
         ], [
             'Authorization' => $auth['token'],

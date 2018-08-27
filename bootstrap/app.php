@@ -107,6 +107,7 @@ $app->router->group([
     require __DIR__ . '/../routes/users.php';
     require __DIR__ . '/../routes/occupations.php';
     require __DIR__ . '/../routes/churches.php';
+    require __DIR__ . '/../routes/tithes.php';
 });
 
 return $app;
