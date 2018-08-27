@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call('OccupationsTableSeeder');
         $this->call('ChurchesTableSeeder');
         $this->call('UsersTableSeeder');
+        $this->call('TithesTableSeeder');
 
         // Enable it back
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');

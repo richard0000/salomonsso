@@ -51,3 +51,10 @@ $factory->define(App\Church::class, function (Faker\Generator $faker) {
         'email'   => $faker->unique()->email,
     ];
 });
+$factory->define(App\Tithe::class, function (Faker\Generator $faker) {
+    return [
+        'amount'    => $faker->randomNumber(4),
+        'date' => date('Y-m-d'),
+        'user_id'  => App\User::orderByRaw("RAND()")->first(),
+    ];
+});

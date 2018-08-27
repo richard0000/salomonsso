@@ -79,4 +79,13 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     {
         return $this->belongsTo('App\Occupation');
     }
+
+    /**
+     * Relation between a user and its many tithes
+     *
+     */
+    public function tithes()
+    {
+        return $this->hasOne('App\Tithe');
+    }
 }
