@@ -22,4 +22,13 @@ class Tithe extends Model
      *
      */
     protected $search_bindings = ['date', 'user_id'];
+
+    /**
+     * Relation between a tithe and his member
+     *
+     */
+    public function member()
+    {
+        return $this->hasOne('App\User', 'id', 'user_id');
+    }
 }

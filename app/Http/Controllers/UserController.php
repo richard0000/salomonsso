@@ -29,7 +29,7 @@ class UserController extends Controller
         $this->validateIndex($request);
 
         $users = User::search($request->only('filter'))
-            ->paginate();
+            ->get();
 
         return $this->success($users, 200);
     }

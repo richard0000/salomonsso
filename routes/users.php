@@ -7,7 +7,7 @@
 |
  */
 $router->group([
-    'middleware' => 'jwt.auth',
+    //'middleware' => 'jwt.auth',
     'prefix'     => '/api',
 ],
     function () use ($router) {
