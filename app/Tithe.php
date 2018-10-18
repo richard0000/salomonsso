@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Searchable;
 
-class Occupation extends Model
+class Tithe extends Model
 {
     use Searchable;
     /**
@@ -13,21 +13,22 @@ class Occupation extends Model
      *
      */
     protected $fillable = [
-        'description',
-        'created_at',
-        'updated_at'
+        'amount',
+        'date',
+        'user_id'
     ];
     /**
      * Searchable fields
      *
      */
-    protected $search_bindings = ['description'];
+    protected $search_bindings = ['date', 'user_id'];
+
     /**
-     * Relation between an occupation and its related members
+     * Relation between a tithe and his member
      *
      */
-    public function members()
+    public function member()
     {
-        return $this->hasMany('App\User');
+        return $this->hasOne('App\User', 'id', 'user_id');
     }
 }
