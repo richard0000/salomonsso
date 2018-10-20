@@ -29,7 +29,7 @@ class UserController extends Controller
         $this->validateIndex($request);
 
         $users = User::search($request->only('filter'))
-            ->paginate();
+            ->get();
 
         return $this->success($users, 200);
     }
@@ -45,7 +45,7 @@ class UserController extends Controller
         $request['password'] = Hash::make($request->get('password'));
         $user                = User::create($request->all());
 
-        return $this->success("The user with with id {$user->id} has been created", 201);
+        return $this->success($user, 200);
     }
     /**
      * Retrieves a user and its related data

@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Tithe;
 use Illuminate\Http\Request;
+use Log;
 
 class TitheController extends Controller
 {
@@ -13,11 +14,31 @@ class TitheController extends Controller
      */
     public function index(Request $request)
     {
+        $this->validateIndex($request);
+
         $tithes = Tithe::search($request->only('filter'))
-            ->paginate();
+            ->with(['member'])
+            ->whereYear('date', $request->input('year'))
+            ->whereMonth('date', $request->input('month'))
+            ->orderBy('date', 'desc')
+            ->get();
 
         return $this->success($tithes, 200);
     }
+
+    /**
+     * Retrieve only one tithe from the database
+     *
+     * @return void
+     */
+    public function show(int $titheId)
+    {
+        $tithe = Tithe::with(['member'])
+            ->findOrFail($titheId);
+
+        return $this->success($tithe, 200);
+    }
+
     /**
      * Create a new tithe in the database
      *
@@ -68,6 +89,21 @@ class TitheController extends Controller
         return $this->success("The tithe with with id {$id} has been deleted", 200);
     }
     /**
+     * Validate fields in request for store user operation
+     *
+     * @return void
+     */
+    public function validateIndex(Request $request)
+    {
+        $rules = [
+            'filter.church_id_eq' => 'required',
+            'year'                => 'required',
+            'month'               => 'required',
+        ];
+
+        $this->validate($request, $rules);
+    }
+    /**
      * Validate fields in request for store tithe operation
      *
      * @return void
@@ -77,8 +113,10 @@ class TitheController extends Controller
         $rules = [
             'amount'  => 'required|numeric',
             'user_id' => 'required|exists:users,id',
-            'date'    => 'required|date_format:d-m-Y',
+            'date'    => 'required|date_format:Y-m-d|before:' . date('Y-m-d'),
         ];
+
+        Log::info('New tithe being submitted: ' . PHP_EOL . response()->json($request->all()));
 
         $this->validate($request, $rules);
     }
