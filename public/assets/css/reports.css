@@ -1,0 +1,165 @@
+.invoice-box {
+    max-width: 800px;
+    margin: auto;
+    font-size: 16px;
+    font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+    color: #555;
+}
+
+.invoice-box table {
+    width: 100%;
+    line-height: inherit;
+    text-align: left;
+}
+
+.invoice-box table td {
+    vertical-align: top;
+}
+
+.invoice-box table tr td:nth-child(2) {
+    text-align: right;
+}
+
+.invoice-box table tr.top table td.title {
+    font-size: 45px;
+    line-height: 45px;
+    color: #333;
+}
+
+.invoice-box table tr.information table td {
+    padding-bottom: 5px;
+}
+
+.invoice-box table tr.heading td {
+    background: #c2c2c2;
+    border-bottom: 1px solid #c2c2c2;
+    font-weight: bold;
+}
+
+.invoice-box table tr.details td {
+    padding-bottom: 20px;
+}
+
+.invoice-box table tr.item td {
+    border-bottom: 1px solid #c2c2c2;
+}
+
+.invoice-box table tr.item.last td {
+    border-bottom: none;
+}
+
+.invoice-box table tr.total td:nth-child(2) {
+    border-top: 2px solid #c2c2c2;
+    font-weight: bold;
+}
+
+.municipio {
+    font-size: 16px;
+    line-height: 25px;
+    color: #333;
+    border-bottom: 2px solid #555;
+    vertical-align: middle !important;
+    text-align: right !important;
+    padding-bottom: 10px;
+    font-weight: bold;
+}
+
+.size-0 {
+    font-size: 16px;
+}
+
+.size-1 {
+    font-size: 14px;
+}
+
+.size-2 {
+    font-size: 12px;
+}
+
+.size-3 {
+    font-size: 10px;
+}
+
+.size-4 {
+    font-size: 8px;
+}
+
+.bold {
+    font-weight: bold;
+    color: black;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.centered {
+    text-align: center;
+}
+
+.label-codbarra-1{
+    margin-left: 50px;
+}
+
+.label-codbarra-2{
+    margin-left: 15px;
+}
+
+.align-left {
+    text-align: left;
+}
+
+.align-right {
+    text-align: right;
+}
+
+.margin-bottom {
+    margin-bottom: 7px;
+}
+
+.strip {
+    border-top: 1px solid #000;
+    border-top-style: dashed;
+    text-align: center !important;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.strip tr {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.letter {
+    background-color: #000;
+    color: #fff;
+    padding: 2px 5px;
+}
+
+.leyenda {
+    background: #dadada;
+    border-bottom: 1px solid #dadada;
+}
+
+.leyenda td {
+    padding: 5px;
+}
+
+.titulo {
+    color: #7d7d7d;
+    font-size: 10px;
+}
+
+.recurso{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+table.montos td {
+    border-bottom: 1px dotted #7d7d7d;
+    padding-top: 5px;
+}
+
+.micro-text{
+    font-size: 7px !important;
+}
