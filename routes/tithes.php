@@ -11,6 +11,7 @@ $router->group([
     'prefix'     => '/api'
 ],
     function () use ($router) {
+        $router->get('/export/tithes', 'ExportTitheController@index');
         $router->get('/tithes', 'TitheController@index');
         $router->get('/tithes/dates', 'TitheDatesController@index');
         $router->get('/tithes/{tithe_id}', 'TitheController@show');
