@@ -5,7 +5,7 @@ use App\Tithe;
 use Illuminate\Http\Request;
 use Log;
 
-class TitheController extends Controller
+class TitheController extends GeneralTithesController
 {
     /**
      * Create a new controller instance.
@@ -14,14 +14,7 @@ class TitheController extends Controller
      */
     public function index(Request $request)
     {
-        $this->validateIndex($request);
-
-        $tithes = Tithe::search($request->only('filter'))
-            ->with(['member'])
-            ->whereYear('date', $request->input('year'))
-            ->whereMonth('date', $request->input('month'))
-            ->orderBy('date', 'desc')
-            ->get();
+        $tithes = $this->getTithesByMonth($request);
 
         return $this->success($tithes, 200);
     }
