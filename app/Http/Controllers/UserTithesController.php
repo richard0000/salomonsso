@@ -13,9 +13,13 @@ class UserTithesController extends Controller
      */
     public function index(Request $request, int $user_id)
     {
+        $this->validateIndex($request);
+
         $tithes = Tithe::search($request->only('filter'))
             ->where('user_id', $user_id)
-            ->paginate();
+            ->whereYear('date', $request->input('year'))
+            ->orderBy('date')
+            ->get();
 
         return $this->success($tithes, 200);
     }
@@ -33,5 +37,18 @@ class UserTithesController extends Controller
         }
 
         return $this->success($tithe, 200);
+    }
+    /**
+     * Validate fields in request for store user operation
+     *
+     * @return void
+     */
+    public function validateIndex(Request $request)
+    {
+        $rules = [
+            'year' => 'required',
+        ];
+
+        $this->validate($request, $rules);
     }
 }
